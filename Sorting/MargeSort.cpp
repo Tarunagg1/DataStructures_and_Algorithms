@@ -1,77 +1,92 @@
 #include <iostream>
-#include <bits/stdc++.h>
-#include <array>
-
+ 
 using namespace std;
-
-void printArray(int a[], int n)
+ 
+// A function to merge the two half into a sorted data.
+void Merge(int *a, int low, int high, int mid)
 {
-    for (int i = 0; i < n; i++)
-    {
-        cout << a[i] << " ";
-    }
-    cout << endl;
+	// We have low to mid and mid+1 to high already sorted.
+	int i, j, k, temp[high-low+1];
+	i = low;
+	k = 0;
+	j = mid + 1;
+ 
+	// Merge the two parts into temp[].
+	while (i <= mid && j <= high)
+	{
+		if (a[i] < a[j])
+		{
+			temp[k] = a[i];
+			k++;
+			i++;
+		}
+		else
+		{
+			temp[k] = a[j];
+			k++;
+			j++;
+		}
+	}
+ 
+	// Insert all the remaining values from i to mid into temp[].
+	while (i <= mid)
+	{
+		temp[k] = a[i];
+		k++;
+		i++;
+	}
+ 
+	// Insert all the remaining values from j to high into temp[].
+	while (j <= high)
+	{
+		temp[k] = a[j];
+		k++;
+		j++;
+	}
+ 
+ 
+	// Assign sorted data stored in temp[] to a[].
+	for (i = low; i <= high; i++)
+	{
+		a[i] = temp[i-low];
+	}
 }
-
-void merge(int *a, int mid,int l,int h)
+ 
+// A function to split array into two parts.
+void MergeSort(int *a, int low, int high)
 {
-    int i, j, k, b[100];
-    i = l;
-    j = (mid+1);
-    k = l;
-
-    while (i <=l && i <=h)
-    {
-        if (a[i] < a[j])
-        {
-            b[k] = a[i];
-            i++;
-        }
-        else
-        {
-            b[k] = a[j];
-            j++;
-        }
-        k++;
-    }
-    while (i <= mid)
-    {
-        b[k] = a[i];
-        k++;
-        i++;
-    }
-    while (j <= h)
-    {
-        b[k] = a[j];
-        j++;
-        k++;
-    }
-
-    for (int i = 0; i < h; i++)
-    {
-        a[i] = b[i];
-    }
-    
+	int mid;
+	if (low < high)
+	{
+		mid=(low+high)/2;
+		// Split the data into two half.
+		MergeSort(a, low, mid);
+		MergeSort(a, mid+1, high);
+ 
+		// Merge them to get sorted output.
+		Merge(a, low, high, mid);
+	}
 }
-
-void mergeSort(int *a, int l, int h)
-{
-    int mid;
-    if (l < h)
-    {
-        mid = (l + h) / 2;   
-        mergeSort(a, l, mid);
-        mergeSort(a, mid + 1, h);
-        merge(a,mid, l,h);
-    }
-}
-
+ 
 int main()
 {
-    int a[] = {9, 8, 7, 6, 5, 4, 3, 2, 1};
-    int n = 9;
-    printArray(a, n);
-    mergeSort(a, 0, n - 1);
-    printArray(a, n);
-    return 0;
+	int n, i;
+	cout<<"\nEnter the number of data element to be sorted: ";
+	cin>>n;
+ 
+	int arr[n];
+	for(i = 0; i < n; i++)
+	{
+		cout<<"Enter element "<<i+1<<": ";
+		cin>>arr[i];
+	}
+ 
+	MergeSort(arr, 0, n-1);
+ 
+	// Printing the sorted data.
+	cout<<"\nSorted Data ";
+	for (i = 0; i < n; i++)
+        cout<<"->"<<arr[i];
+ 
+	return 0;
 }
