@@ -146,6 +146,89 @@ int calcHeight(struct Node *root)
     return max(lheight, rheight) + 1;
 }
 
+void sumReplaceMent(Node *root)
+{
+
+    if (root == NULL)
+        return;
+
+    sumReplaceMent(root->left);
+    sumReplaceMent(root->right);
+
+    if (root->left != NULL)
+    {
+        root->data += root->left->data;
+    }
+
+    if (root->right != NULL)
+    {
+        root->data += root->right->data;
+    }
+}
+
+void rightView(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    queue<Node *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        int n = q.size();
+        for (int i = 0; i < n; i++)
+        {
+            Node *curr = q.front();
+            q.pop();
+
+            if (i == n - 1)
+            {
+                cout << curr->data << " ";
+            }
+
+            if (curr->left != NULL)
+            {
+                q.push(curr->left);
+            }
+            if (curr->right != NULL)
+            {
+                q.push(curr->right);
+            }
+        }
+    }
+}
+
+void leftView(Node *root)
+{
+    if (root == NULL)
+        return;
+
+    queue<Node *> q;
+    q.push(root);
+
+    while (!q.empty())
+    {
+        int n = q.size();
+
+        for (int i = 1; i <= n; i++)
+        {
+            Node *temp = q.front();
+            q.pop();
+
+            if (i == 1)
+            {
+                cout << temp->data << " ";
+            }
+
+            if (temp->left != NULL)
+                q.push(temp->left);
+            if (temp->right != NULL)
+                q.push(temp->right);
+        }
+    }
+}
+
 int main()
 {
     struct Node *root = createNode(1);
@@ -156,6 +239,10 @@ int main()
     root->left->left = createNode(4);
     root->left->right = createNode(5);
 
+    //        1
+    //     2     3
+    //  4    5
+
     // preorder(root);
     // LevelOrder(root);
 
@@ -164,5 +251,11 @@ int main()
 
     // cout << sumOfNodesInTree(root);
 
-    cout << calcHeight(root);
+    // cout << calcHeight(root);
+
+    // preorder(root);
+    // cout << endl;
+    // sumReplaceMent(root);
+    // preorder(root);
+    // cout << endl;
 }
