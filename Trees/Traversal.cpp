@@ -229,6 +229,8 @@ void leftView(Node *root)
     }
 }
 
+
+
 int main()
 {
     struct Node *root = createNode(1);
