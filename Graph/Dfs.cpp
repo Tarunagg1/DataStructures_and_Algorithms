@@ -1,28 +1,52 @@
 #include <iostream>
-#include <bits/stdc++.h>
+#include <vector>
+#include <queue>
 
 using namespace std;
 
-
-const int N  = 1000;
-int n,m;
+const int N = 1e5 + 2;
+bool vis[N];
 vector<int> adj[N];
-int vis[N];
 
+void dfs(int node)
+{
+    vis[node] = 1;
 
-void dfs(int u){
-    
+    // Inorder
+    vector<int>::iterator it;
+
+    // inorder
+
+    for (it = adj[node].begin(); it != adj[node].end(); it++)
+    {
+        if (vis[*it])
+            ;
+        else
+        {
+            dfs(*it);
+        }
+    }
+
+    // postorder
+
+    cout << node << " ";
 }
 
-int main(){
-    cin>>n>>m;
-    for (int i = 1; i <=m; i++)
-    {
-        int u,v;
-        cin>>u>>v;
-        adj[u].push_back(u);
-        adj[v].push_back(v);
-    }
-    memset(vis, 0, sizeof(vis));
+int main()
+{
+    for (int i = 0; i < N; i++)
+        vis[i] = 0;
 
+    int n, m;
+    cin >> n >> m;
+
+    int x, y;
+    for (int i = 0; i < m; i++)
+    {
+        cin >> x >> y;
+        adj[x].push_back(y);
+        adj[y].push_back(x);
+    }
+
+    dfs(1);
 }
