@@ -1,8 +1,8 @@
 import java.util.Scanner;
 
-class bubblesort {
-    public static void printArr(int arr[], int a) {
-        for (int i = 0; i < a; i++) {
+public class selectionSort {
+    public static void printArr(int arr[]) {
+        for (int i = 0; i < arr.length; i++) {
             System.out.print(arr[i]);
         }
         System.out.println("");
@@ -14,12 +14,16 @@ class bubblesort {
         arr[j] = temp;
     }
 
-    public static void bubbleSort(int arr[], int a) {
+    public static void selectionSorting(int arr[], int a) {
         for (int i = 0; i < a - 1; i++) {
-            for (int j = 0; j < a - i - 1; j++) {
-                if (arr[j + 1] < arr[j]) {
-                    swap(arr, j + 1, j);
+            int min = i;
+            for (int j = i + 1; j < a; j++) {
+                if (arr[j] < arr[min]) {
+                    min = j;
                 }
+            }
+            if (min != i) {
+                swap(arr, min, i);
             }
         }
     }
@@ -35,9 +39,9 @@ class bubblesort {
             arr[i] = sc.nextInt();
         }
 
-        printArr(arr, a);
-        bubbleSort(arr, a);
-        printArr(arr, a);
+        printArr(arr);
+        selectionSorting(arr, a);
+        printArr(arr);
 
         sc.close();
     }
