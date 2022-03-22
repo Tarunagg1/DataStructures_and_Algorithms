@@ -12,7 +12,7 @@ struct Node
 
 /**
  * Create node
-*/
+ */
 
 Node *createNewNode()
 {
@@ -27,7 +27,7 @@ Node *createNewNode()
 
 /**
  * traverse list
-*/
+ */
 
 void LinkedListTraversal(struct Node *main)
 {
@@ -41,7 +41,7 @@ void LinkedListTraversal(struct Node *main)
 
 /**
  * insert at start
-*/
+ */
 
 Node *insertAtStart(struct Node *main)
 {
@@ -59,7 +59,7 @@ Node *insertAtStart(struct Node *main)
 
 /**
  * insert at last
-*/
+ */
 
 Node *insertAtLast(struct Node *main)
 {
@@ -80,10 +80,9 @@ Node *insertAtLast(struct Node *main)
     return main;
 }
 
-
 /**
  * insert at after
-*/
+ */
 
 Node *insertAtAfter(Node *main)
 {
@@ -114,7 +113,7 @@ Node *insertAtAfter(Node *main)
 
 /**
  * delete start
-*/
+ */
 Node *deleteFirst(Node *main)
 {
     if (main == NULL)
@@ -133,11 +132,11 @@ Node *deleteFirst(Node *main)
 
 /**
  * delete last
-*/
+ */
 
 Node *deleteEnd(Node *main)
 {
-     if (main == NULL)
+    if (main == NULL)
     {
         cout << "Invalde deletion" << endl;
         return main;
@@ -157,7 +156,7 @@ Node *deleteEnd(Node *main)
 
 /**
  * delete after
-*/
+ */
 
 Node *deleteAfter(Node *main)
 {
@@ -186,9 +185,7 @@ Node *deleteAfter(Node *main)
         free(q);
     }
     return main;
-
 }
-
 
 int main()
 {
@@ -201,6 +198,6 @@ int main()
     start = insertAtAfter(start);
     start = deleteFirst(start);
     start = deleteEnd(start);
-    
+
     LinkedListTraversal(start);
 }
