@@ -41,6 +41,18 @@ int isBst(struct Node *root)
     }
 }
 
+struct Node *insertNodeInBst(struct Node *root, int key){
+    if(root == NULL) return createNode(key);
+
+    if(root->data > key){
+        root->left = insertNodeInBst(root->right, key);
+    }else if(root->data < key){
+        root->right = insertNodeInBst(root->right, key);
+    }
+
+    return root;
+}
+
 int main()
 {
     struct Node *root = createNode(5);
