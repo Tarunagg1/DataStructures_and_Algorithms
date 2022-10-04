@@ -53,6 +53,7 @@ struct Node *insertNodeInBst(struct Node *root, int key){
     return root;
 }
 
+
 int main()
 {
     struct Node *root = createNode(5);
