@@ -71,8 +71,115 @@ int isBst(struct Node *root)
     }
 }
 
-int searchInBst(struct Node *root){
-    
+int searchInBst(struct Node *root, int val)
+{
+    if (root == NULL)
+        return 0;
+
+    if (root->data == val)
+    {
+        return 1;
+    }
+    else if (val < root->data)
+    {
+        searchInBst(root->left, val);
+    }
+    else
+    {
+        searchInBst(root->right, val);
+    }
+}
+
+int searchInBstIterative(struct Node *root, int key)
+{
+    while (root != NULL)
+    {
+        if (key == root->data)
+        {
+            return 1;
+        }
+        else if (key < root->data)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+    }
+    return 0;
+}
+
+void insertIntoBst(struct Node *root, int key)
+{
+    struct Node *prev = NULL;
+    while (root != NULL)
+    {
+        prev = root;
+        if (key == root->data)
+        {
+            printf("Can't insert allready in bst \n");
+            return;
+        }
+        else if (key < root->data)
+        {
+            root = root->left;
+        }
+        else
+        {
+            root = root->right;
+        }
+    }
+    struct Node *newNode = createNewNode(key);
+    if (key < prev->data)
+    {
+        prev->left = newNode;
+    }
+    else
+    {
+        prev->right = newNode;
+    }
+}
+
+struct Node *inorderPredecessor(struct Node *root)
+{
+    root = root->right;
+    while (root->right != NULL)
+    {
+        root = root->right;
+    }
+    return root;
+}
+
+struct Node *deleteIntoBst(struct Node *root, int key)
+{
+    struct Node *ipre;
+    if (root == NULL)
+    {
+        return NULL;
+    }
+
+    if (root->left == NULL && root->right == NULL)
+    {
+        free(root);
+        return NULL;
+    }
+
+    if (key < root->data)
+    {
+        root->left = deleteIntoBst(root->left, key);
+    }
+    else if (key > root->data)
+    {
+        root->right = deleteIntoBst(root->right, key);
+    }
+    else
+    {
+        ipre = inorderPredecessor(root);
+        root->data = ipre->data;
+        root->left = deleteIntoBst(root->left, ipre->data);
+    }
+    return root;
 }
 
 int main()
@@ -88,6 +195,10 @@ int main()
     p1->left = p3;
     p1->right = p4;
 
-    printf("%d", isBst(p));
+    inOrder(p);
+    deleteIntoBst(p, 3);
+    printf("\n");
+    inOrder(p);
+    // printf("%d", searchInBstIterative(p, 6));
     return 0;
 }
